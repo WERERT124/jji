@@ -1,4 +1,4 @@
--- ===== 基础服务 =====
+
 local Players = game:GetService("Players")
 local TeleportService = game:GetService("TeleportService")
 local HttpService = game:GetService("HttpService")
@@ -7,13 +7,12 @@ local LocalPlayer = Players.LocalPlayer
 local PLACE_ID = game.PlaceId
 local function getCurrentJobId() return game.JobId end
 
--- ===== 配置 =====
 local ONLY_ALLOWED_DROP = "talisman"
 local PLAY_BUTTON_POS = Vector2.new(202, 732)
 local MAX_ATTEMPTS = 3
 local CHECK_DELAY = 5
 
--- ===== 模擬點擊 Play 按鈕 =====
+
 local function simulateClickPlay()
 	local gui = LocalPlayer:FindFirstChild("PlayerGui")
 	if not gui then return end
@@ -33,7 +32,7 @@ local function simulateClickPlay()
 	warn("🖱️ 已模擬點擊 Play 按鈕")
 end
 
--- ===== 掉落容器定位（快速）=====
+
 local function getDropFolder()
 	local timeout, interval, elapsed = 5, 0.2, 0
 	while elapsed < timeout do
@@ -49,7 +48,7 @@ local function getDropFolder()
 	return nil
 end
 
--- ===== TP & 撿物 =====
+
 local function teleportTo(item)
 	local root = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
 	if not root then return end
@@ -70,7 +69,7 @@ local function tryPickup(item)
 	end
 end
 
--- ===== 判斷撿完是否只剩 Talisman / ChestGroup =====
+
 local function isSafeToHop()
 	local drops = getDropFolder()
 	if not drops then return false end
@@ -84,7 +83,7 @@ local function isSafeToHop()
 	return true
 end
 
--- ===== 撿物 + 閃跳邏輯核心 =====
+
 local function handleLootLoop()
 	local attempts = 0
 
@@ -127,7 +126,7 @@ local function handleLootLoop()
 	end
 end
 
--- ===== 永不失敗跳服器 + 自體重啟腳本 =====
+
 local function smartHop()
 	while true do
 		local best, fallback = {}, {}
@@ -168,7 +167,7 @@ local function smartHop()
 	end
 end
 
--- ===== 主流程 =====
+
 repeat task.wait() until LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
 task.wait(CHECK_DELAY)
 
